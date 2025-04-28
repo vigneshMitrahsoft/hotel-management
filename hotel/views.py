@@ -3,15 +3,16 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Hotel
 from .serializers import HotelSerializer
+from rest_framework.exceptions import APIException 
  
-@api_view(['GET','POST'])
+@api_view(['GET'])
 def hotel_list(request):
 	if request.method == 'GET':
 		hotel = Hotel.objects.all()
 		serializer = HotelSerializer(hotel, many = True)
 		return Response(serializer.data, status = status.HTTP_200_OK)
     
-@api_view(['GET','POST'])
+@api_view(['POST'])
 def add_hotel(request):
 	serializer = HotelSerializer(data = request.data)
 	if serializer.is_valid():
@@ -25,25 +26,26 @@ def add_hotel(request):
 		return Response({'message' : 'Created Successfully'}, status = status.HTTP_201_CREATED)
 	return Response(status = status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET','PUT'])
-def update_hotel(request, pk):
-
+def get_hotel_id(pk):
 	try:
-		hotel = Hotel.objects.get(pk = pk)
+		hotel = Hotel.objects.get(hotel_id = pk)
 	except Hotel.DoesNotExist:
-		return Response({'error' : 'Hotel Not Found'})
-	
-	if request.method == 'PUT':
-		serializer = HotelSerializer(data = request.data)
-		if serializer.is_valid():
-			hotel.hotel_name = serializer.validated_data['hotel_name']
-			hotel.location = serializer.validated_data['location']
-			hotel.email = serializer.validated_data['email']
-			hotel.phone = serializer.validated_data['phone']
-			hotel.updated_by = '1'
-			hotel.save()
-			return Response({'message' : 'Updated Successfully'},status = status.HTTP_200_OK)
-		return Response(status = status.HTTP_400_BAD_REQUEST)
+		raise APIException("Hotel does not exist")
+	return hotel
+
+@api_view(['PUT'])
+def update_hotel(request, pk):
+	hotel = get_hotel_id(pk)
+	serializer = HotelSerializer(hotel, data = request.data, partial = True)
+	if serializer.is_valid():
+		hotel.hotel_name = serializer.validated_data['hotel_name']
+		hotel.location = serializer.validated_data['location']
+		hotel.email = serializer.validated_data['email']
+		hotel.phone = serializer.validated_data['phone']
+		hotel.updated_by = '1'
+		hotel.save()
+		return Response({'message' : 'Updated Successfully'},status = status.HTTP_200_OK)
+	return Response(status = status.HTTP_400_BAD_REQUEST)
 
 @api_view(['Delete'])
 def delete_hotel(request, pk):
@@ -52,9 +54,8 @@ def delete_hotel(request, pk):
 		hotel = Hotel.objects.get(pk = pk)
 	except Hotel.DoesNotExist:
 		return Response({'error' : 'Hotel Not Found'})
-	
 	hotel.delete()
-	return Response({'message' : 'deleted successfully'}, status = status.HTTP_400_BAD_REQUEST)
+	return Response({'message' : 'deleted successfully'}, status = status.HTTP_200_OK)
 
 
 
