@@ -7,7 +7,6 @@ from rest_framework.exceptions import APIException
  
 @api_view(['GET'])
 def users_list(request):
-	if request.method == 'GET':
 		user = Users.objects.all()
 		serializer = UsersSerializer(user, many = True)
 		return Response(serializer.data, status = status.HTTP_200_OK)
