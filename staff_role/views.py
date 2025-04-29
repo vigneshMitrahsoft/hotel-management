@@ -12,7 +12,7 @@ def create_staff(request):
 		Staff.objects.create(
 			staff_id = serializer.validated_data['staff_id'],
 			staff_name = serializer.validated_data['staff_name'],
-			email = serializer.validated_data['email'],
+			email = serializer.validated_data['email'], 
 			phone = serializer.validated_data['phone'],
 			role_id = serializer.validated_data['role_id'],
 			hotel_id =  serializer.validated_data['hotel_id'],
