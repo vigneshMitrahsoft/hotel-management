@@ -1,5 +1,3 @@
-import datetime
-from django.shortcuts import render, get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -8,7 +6,7 @@ from .serializer import roomSerializer
 from rest_framework.exceptions import APIException
 
 # Create your views here.
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def room_list(request):
 	if request.method == 'GET':
 		room = rooms.objects.all()
@@ -23,33 +21,34 @@ def addroom(request):
             rooms.objects.create(
                 room_number = serializer.validated_data['room_number'],
                 status = serializer.validated_data['status'],
-                price = serializer.validated_data['price']
+                price = serializer.validated_data['price'],
 		    )
         return Response(status = status.HTTP_201_CREATED)
     return Response(status = status.HTTP_400_BAD_REQUEST)
 
-def check_room(pk):
+def check_room(id):
     try:
-        room = rooms.objects.get(pk = pk)
+        room = rooms.objects.get(id = id)
     except rooms.DoesNotExist:
-        raise APIException(detail = {"statuscode": 404, "status":"error", "message": "room not found"})
+        raise APIException(detail = {"statuscode" : 404, "status" : "error", "message" : "room not found"})
     return room
 
 @api_view(['PATCH'])
-def updateroom(request, pk):
-    room = check_room(pk)
-    serializer = roomSerializer(room, data = request.data, partial = True)
+def updateroom(request, id):
+    room = check_room(id)
+    serializer = roomSerializer(room, data = request.data)
     if serializer.is_valid():
-        rooms.objects.filter(pk = pk).update(**serializer.validated_data)
-        return Response({"statuscode" : status.HTTP_200_OK, "status" : "success"}, status = status.HTTP_200_OK)
+        room.room_number = serializer.validated_data['room_number']
+        room.status = serializer.validated_data['status']
+        room.price = serializer.validated_data['price']
+        room.updated_by = 2
+        room.save()
+        return Response("{'message' : 'updated successfully'}")
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
 def deleteroom(request,pk):
-    room = get_object_or_404(rooms, pk = pk)
+    room = check_room(pk)
     room.delete()
     return Response(status = status.HTTP_202_ACCEPTED)
 
-
-
-	

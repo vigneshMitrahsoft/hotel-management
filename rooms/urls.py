@@ -4,6 +4,6 @@ from . import views
 urlpatterns = [
     path('rooms', views.room_list),
     path('addroom', views.addroom),
-    path('update/<int:pk>', views.updateroom),
-    path('delete/<int:pk>',views.deleteroom)
+    path('update/<int:id>', views.updateroom),
+    path('delete/<int:pk>',views.deleteroom), 
 ]
