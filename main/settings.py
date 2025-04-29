@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'hotel',
     'staff_role',
-    'rooms'
+    'rooms',
+    'room_type'
 ]
 
 MIDDLEWARE = [
