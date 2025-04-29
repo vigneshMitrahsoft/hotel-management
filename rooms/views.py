@@ -14,7 +14,7 @@ def room_list(request):
 		return Response(serializer.data, status = status.HTTP_200_OK)
 
 @api_view(['POST'])
-def addroom(request):
+def add_room(request):
     if request.method == 'POST':
         serializer = roomSerializer(data = request.data)
         if serializer.is_valid():
@@ -34,7 +34,7 @@ def check_room(id):
     return room
 
 @api_view(['PATCH'])
-def updateroom(request, id):
+def update_room(request, id):
     room = check_room(id)
     serializer = roomSerializer(room, data = request.data)
     if serializer.is_valid():
@@ -47,8 +47,7 @@ def updateroom(request, id):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
-def deleteroom(request,pk):
+def delete_room(request,pk):
     room = check_room(pk)
     room.delete()
     return Response(status = status.HTTP_202_ACCEPTED)
-
