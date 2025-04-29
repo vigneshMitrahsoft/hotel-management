@@ -7,18 +7,3 @@ class StaffSerializer(serializers.Serializer):
     phone=serializers.IntegerField()
     role_id=serializers.IntegerField()
     hotel_id=serializers.IntegerField()
-    
-
-# class StaffSerializer(serializers.Serializer):
-#     id = serializers.IntegerField(read_only=True)
-#     name = serializers.CharField(max_length=100)
-#     role = serializers.IntegerField()
-
-# class AmenitySerializer(serializers.Serializer):
-#     id = serializers.IntegerField(read_only=True)
-#     name = serializers.CharField(max_length=100)
-
-# class RoomAmenitySerializer(serializers.Serializer):
-#     id = serializers.IntegerField(read_only=True)
-#     room_number = serializers.CharField(max_length=10)
-#     amenity = serializers.IntegerField()

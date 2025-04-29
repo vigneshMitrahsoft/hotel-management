@@ -14,24 +14,5 @@ class Staff(models.Model):
    
    def __str__(self):
       return self.staff_name
-
-# class role(models.Model):
-#    role_name = models.CharField(max_length=50,blank=True,null=True)
-#    role_id = models.IntegerField(primary_key=True)
-
-#    def __str__(self):
-#       return self.role_name
-    
-# class amenities(models.Model):
-#    amenities_id = models.IntegerField(primary_key=True)
-#    amenities_name  = models.CharField(max_length=50,blank=True,null=True)
-#    description = models.TextField()
-
-#    def __str__(self):
-#       return self.amenities_name
-    
-
-# class room_amenties(models.Model):
-#    room_amenties_id = models.IntegerField(primary_key=True)
-#    room_id = models.IntegerField(primary_key=True)
-#    amenities_id =  models.IntegerField(primary_key=True)
+   
+   
