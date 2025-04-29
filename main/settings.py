@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'hotel',
     'staff_role',
+    'users',
     'rooms',
     'room_type'
 ]
@@ -80,7 +81,7 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.db.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
