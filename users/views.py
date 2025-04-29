@@ -48,7 +48,7 @@ def update_users(request, pk):
 		return Response({'message' : 'Updated Successfully'},status = status.HTTP_200_OK)
 	return Response(status = status.HTTP_400_BAD_REQUEST)
 
-@api_view(['Delete'])
+@api_view(['DELETE'])
 def delete_users(request, pk):
 	try:
 		user = Users.objects.get(pk = pk)
