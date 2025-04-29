@@ -56,11 +56,3 @@ def delete_hotel(request, pk):
 		return Response({'error' : 'Hotel Not Found'})
 	hotel.delete()
 	return Response({'message' : 'deleted successfully'}, status = status.HTTP_200_OK)
-
-
-
-
-
-
-	
-
