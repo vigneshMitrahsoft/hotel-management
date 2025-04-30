@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'users',
     'rooms',
     'role',
-    'amenties'
+    'amenties',
+    'room_amenties'
     
 ]
 

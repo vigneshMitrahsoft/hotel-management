@@ -47,6 +47,3 @@ def delete_role(request, pk):
 	role = get_role(pk = pk)
 	role.delete()
 	return Response({'message': 'Role deleted successfully'})
-
-
-
