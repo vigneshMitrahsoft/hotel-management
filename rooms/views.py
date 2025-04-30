@@ -6,7 +6,7 @@ from .serializer import roomSerializer
 from rest_framework.exceptions import APIException
 
 @api_view(['GET'])
-def list_room():
+def list_room(request):
 	room = rooms.objects.all()
 	serializer = roomSerializer(room, many = True)	
 	return Response(serializer.data, status = status.HTTP_200_OK)
