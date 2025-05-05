@@ -22,5 +22,7 @@ urlpatterns = [
 	path('api/', include('hotel.urls')),
 	path('api/', include('staff_role.urls')),
 	path('api/', include('users.urls')),
-	path('api/', include('guests.urls'))
+	path('api/', include('guests.urls')),
+  path('api/', include('room_type.urls')),
+  path('api/', include('role.urls'))
 ]
