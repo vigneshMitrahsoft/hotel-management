@@ -39,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'hotel',
-    'staff_role',
     'users',
-    'rooms'
+    'rooms',
+    'staff'
 ]
 
 MIDDLEWARE = [
