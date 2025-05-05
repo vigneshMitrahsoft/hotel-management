@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'staff_role',
     'users',
     'rooms',
+    'role',
+    'amenties',
     'guests',
     'room_type',
     'role'
