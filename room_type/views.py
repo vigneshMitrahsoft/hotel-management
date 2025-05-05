@@ -5,13 +5,13 @@ from .models import room_types
 from .serializer import roomTypeSerializer
 from rest_framework.exceptions import APIException
 
-@api_view(['GET'])
+@api_view(('GET',))
 def list_room_type(request):
 	room_type = room_types.objects.all()
 	serializer = roomTypeSerializer(room_type, many = True)
 	return Response(serializer.data, status = status.HTTP_200_OK)
 
-@api_view(['POST'])
+@api_view(('POST',))
 def add_room_type(request):
 	serializer = roomTypeSerializer(data = request.data)
 	if serializer.is_valid():
@@ -20,7 +20,7 @@ def add_room_type(request):
 			room_type = serializer.validated_data['room_type'],
 			capacity = serializer.validated_data['capacity'],
 			description = serializer.validated_data['description'],
-			created_by = 1 
+			created_by = 1
 		)
 		return Response(status = status.HTTP_201_CREATED)
 	return Response(status = status.HTTP_400_BAD_REQUEST)
@@ -32,7 +32,7 @@ def check_room_type(pk):
 		raise APIException(detail = {"statuscode" : 404, "status" : "error", "message" : "room not found"})
 	return room_type
 
-@api_view(['PATCH'])
+@api_view(('PATCH',))
 def update_room_type(request, pk):
 	room_type = check_room_type(pk = pk)
 	serializer = roomTypeSerializer(room_type, data = request.data)
@@ -46,7 +46,7 @@ def update_room_type(request, pk):
 		return Response("{'message' : 'updated successfully'}")
 	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['DELETE'])
+@api_view(('DELETE',))
 def delete_room_type(request, pk):
 	room_type = check_room_type(pk)
 	room_type.delete()

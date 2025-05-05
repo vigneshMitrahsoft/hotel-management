@@ -5,21 +5,20 @@ from .models import rooms
 from .serializer import roomSerializer
 from rest_framework.exceptions import APIException
 
-@api_view(['GET'])
+@api_view(('GET',))
 def list_room(request):
-	print('aiwb')
 	room = rooms.objects.all()
 	serializer = roomSerializer(room, many = True)	
 	return Response(serializer.data, status = status.HTTP_200_OK)
 
-@api_view(['POST'])
+@api_view(('POST',))
 def add_room(request):
 	serializer = roomSerializer(data = request.data)
 	if serializer.is_valid():
 		rooms.objects.create(
 			room_number = serializer.validated_data['room_number'],
 			status = serializer.validated_data['status'],
-			price = serializer.validated_data['price'],
+			price = serializer.validated_data['price']
 		)
 		return Response(status = status.HTTP_201_CREATED)
 	return Response(status = status.HTTP_400_BAD_REQUEST)
@@ -31,7 +30,7 @@ def check_room(id):
 		raise APIException(detail = {"statuscode" : 404, "status" : "error", "message" : "room not found"})
 	return room
 
-@api_view(['PATCH'])
+@api_view(('PATCH',))
 def update_room(request, id):
 	room = check_room(id)
 	serializer = roomSerializer(room, data = request.data)
@@ -44,7 +43,7 @@ def update_room(request, id):
 		return Response("{'message' : 'updated successfully'}")
 	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['DELETE'])
+@api_view(('DELETE',))
 def delete_room(pk):
 	room = check_room(pk)
 	room.delete()

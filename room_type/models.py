@@ -4,7 +4,7 @@ from django.db import models
 class room_types(models.Model):
 	room_type_id = models.IntegerField(primary_key = True)
 	room_type = models.CharField(max_length = 100)
-	capacity = models.IntegerField(max_length=5)
+	capacity = models.IntegerField()
 	description = models.TextField(max_length=200)
 	created_at = models.DateTimeField(auto_now_add = True, null = True)
 	updated_at = models.DateTimeField(auto_now = True, null = True)
