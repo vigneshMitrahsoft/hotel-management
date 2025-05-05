@@ -42,10 +42,12 @@ INSTALLED_APPS = [
     'staff_role',
     'users',
     'rooms',
+    'maintenance_requests',
     'role',
     'amenties',
-    'room_amenties'
-    
+    'room_amenties',
+    'guests',
+    'room_type'
 ]
 
 MIDDLEWARE = [
