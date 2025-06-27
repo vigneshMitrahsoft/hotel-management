@@ -44,7 +44,7 @@ def update_room(request, id):
 	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(('DELETE',))
-def delete_room(pk):
+def delete_room(request, pk):
 	room = check_room(pk)
 	room.delete()
 	return Response(status = status.HTTP_202_ACCEPTED)

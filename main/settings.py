@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'staff_role',
     'users',
     'rooms',
-    'maintenance_requests',
+    'maintenanceRequests',
     'role',
     'amenties',
     'room_amenties',
@@ -129,5 +129,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# settings.configure(default_settings = rooms, DEBUG = True)
+# django.setup()
+
+# DJANGO_SETTINGS_MODULE = main.settings
 
 from .settings_local import *
