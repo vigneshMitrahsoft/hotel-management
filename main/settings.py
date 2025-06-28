@@ -135,4 +135,4 @@ STATIC_URL = '/static/'
 
 # DJANGO_SETTINGS_MODULE = main.settings
 
-from .settings_local import *
+# from .settings_local import *
